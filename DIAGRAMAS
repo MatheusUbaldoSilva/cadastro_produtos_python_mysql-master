@@ -1,0 +1,53 @@
+Diagrama de Interação:
+Usuário -> Sistema de Cadastro de Produtos: Solicita Cadastro
+Sistema de Cadastro de Produtos -> Banco de Dados: Valida e Atualiza
+Banco de Dados -> Sistema de Cadastro de Produtos: Confirmação
+Sistema de Cadastro de Produtos -> Usuário: Retorna Confirmação
+
+Diagrama de Classes:
+
+Classe Produto {
+  id: int
+  nome: string
+  descricao: string
+  quantidade: int
+  preco: float
+  cadastrar()
+  atualizar()
+  excluir()
+}
+
+Classe BancoDeDados {
+  conexao: string
+  conectar()
+  executarQuery()
+  fechar()
+}
+
+Classe Usuario {
+  id: int
+  nome: string
+  senha: string
+  login()
+  logout()
+}
+
+Classe SistemaCadastro {
+  usuarioAtual: Usuario
+  cadastrarProduto()
+  atualizarProduto()
+  excluirProduto()
+}
+
+Diagrama de Atividades:
+
+Inicio -> Login do Usuário -> Abrir Tela de Cadastro -> Inserir Dados -> Validar Dados
+Validar Dados -> [Dados válidos?] -> (Sim) -> Salvar no Banco de Dados -> Confirmação -> Fim
+             -> [Dados válidos?] -> (Não) -> Mostrar erro -> Inserir Dados
+
+Diagrama de Estados:
+
+[Novo] -> [Cadastrado]: Após validação e cadastro
+[Cadastrado] -> [Em Edição]: Selecionado para atualização
+[Em Edição] -> [Cadastrado]: Atualização confirmada
+[Cadastrado] -> [Excluído]: Produto excluído
